@@ -23,6 +23,11 @@ application {
     mainClass.set("ru.itmo.fl.shlang.MainKt")
 }
 
+tasks.withType<JavaExec>().all {
+    standardInput = System.`in`
+    standardOutput = System.out
+}
+
 tasks.generateGrammarSource {
     val generated = "generated-src/antlr/main/ru/itmo/fl/shlang/frontend/antlr"
     outputDirectory = File("${project.buildDir}/$generated")
@@ -31,8 +36,10 @@ tasks.generateGrammarSource {
 
 tasks.withType<KotlinCompile> {
     dependsOn("generateGrammarSource")
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
+
+tasks.findByName("compileTestKotlin")?.dependsOn("generateTestGrammarSource")
 
 tasks.test {
     useJUnitPlatform()

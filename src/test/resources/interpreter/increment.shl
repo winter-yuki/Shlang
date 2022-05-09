@@ -1,0 +1,6 @@
+a = read();
+b = read();
+a = a + 1;
+if (a == b) {
+    print(1);
+}

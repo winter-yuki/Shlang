@@ -26,6 +26,9 @@ IF:    'if';
 ELSE:  'else';
 WHILE: 'while';
 
+READ:  'read';
+PRINT: 'print';
+
 SEMICOLON:     ';';
 OPEN_PARENS:   '(';
 CLOSE_PARENS:  ')';
@@ -37,7 +40,7 @@ fragment UNDERSCORE: '_';
 fragment ALPHA:      [a-zA-Z];
 fragment DIGIT:      [0-9];
 
-NUMBER:     [1-9] DIGIT*;
+NUMBER:     [1-9] DIGIT* | DIGIT;
 IDENTIFIER: (UNDERSCORE | ALPHA) (UNDERSCORE | ALPHA | DIGIT)*;
 
 fragment LINE_CHAR:   ~[\n\r];

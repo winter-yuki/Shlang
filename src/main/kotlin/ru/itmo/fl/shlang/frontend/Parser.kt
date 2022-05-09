@@ -2,6 +2,7 @@ package ru.itmo.fl.shlang.frontend
 
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
+import ru.itmo.fl.shlang.ShlangException
 import ru.itmo.fl.shlang.frontend.antlr.ShlangLexer
 import ru.itmo.fl.shlang.frontend.antlr.ShlangParser
 import ru.itmo.fl.shlang.frontend.antlr.ShlangParserBaseVisitor
@@ -14,13 +15,15 @@ import ru.itmo.fl.shlang.frontend.ast.ExprStmt
 import ru.itmo.fl.shlang.frontend.ast.Identifier
 import ru.itmo.fl.shlang.frontend.ast.IfStmt
 import ru.itmo.fl.shlang.frontend.ast.NumberLiteral
+import ru.itmo.fl.shlang.frontend.ast.Print
 import ru.itmo.fl.shlang.frontend.ast.Program
+import ru.itmo.fl.shlang.frontend.ast.Read
 import ru.itmo.fl.shlang.frontend.ast.Stmt
 import ru.itmo.fl.shlang.frontend.ast.UnOp
 import ru.itmo.fl.shlang.frontend.ast.UnOpNode
 import ru.itmo.fl.shlang.frontend.ast.WhileStmt
 
-class ParseFailedException(e: Exception) : RuntimeException(e);
+class ParseFailedException(e: Exception) : ShlangException(e = e);
 
 class Parser {
     fun parse(src: String): Program = try {
@@ -131,5 +134,14 @@ private class ExprVisitor : ShlangParserBaseVisitor<Expr>() {
 
     override fun visitParensC(ctx: ShlangParser.ParensCContext): Expr {
         return visit(ctx.cmpExpr())
+    }
+
+    override fun visitRead(ctx: ShlangParser.ReadContext): Expr {
+        return Read
+    }
+
+    override fun visitPrint(ctx: ShlangParser.PrintContext): Expr {
+        val expr = visit(ctx.expr())
+        return Print(expr)
     }
 }

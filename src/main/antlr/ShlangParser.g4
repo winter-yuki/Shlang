@@ -47,6 +47,7 @@ expr
     : arithExpr
     | cmpExpr
     | booleanExpr
+    | ioExpr
     ;
 
 arithExpr
@@ -71,6 +72,11 @@ booleanExpr
     | op=NOT booleanExpr                                              #unaryB
     | <assoc=right> lhs=booleanExpr op=AND rhs=booleanExpr            #binaryB
     | <assoc=right> lhs=booleanExpr op=OR rhs=booleanExpr             #binaryB
+    ;
+
+ioExpr
+    : READ OPEN_PARENS CLOSE_PARENS       #read
+    | PRINT OPEN_PARENS expr CLOSE_PARENS #print
     ;
 
 identifier

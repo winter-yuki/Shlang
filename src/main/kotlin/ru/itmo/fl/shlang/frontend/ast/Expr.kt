@@ -35,6 +35,6 @@ enum class UnOp(val repr: String) {
     }
 }
 
-object Input : Expr
+object Read : Expr
 
-data class Output(val expr: Expr) : Expr
+data class Print(val expr: Expr) : Expr
