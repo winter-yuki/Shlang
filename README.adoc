@@ -1,0 +1,28 @@
+= Shlang
+
+Simple healthy programming language
+
+.Supported statements:
+* `assignment`
+* `if`
+* `while`
+
+== Run
+
+.Interactively
+[source,bash]
+----
+$ ./gradlew run --console=plain
+----
+
+.Interpret files
+[source,bash]
+----
+$ ./gradlew run --args='file1.shl file2.shl'
+----
+
+.Run tests
+[source,bash]
+----
+$ ./gradlew build
+----
