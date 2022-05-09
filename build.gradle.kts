@@ -1,5 +1,9 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("jvm") version "1.6.21"
+    antlr
+    application
 }
 
 group = "ru.itmo.fl.shlang"
@@ -10,16 +14,25 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
+    testImplementation((kotlin("test")))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    antlr("org.antlr:antlr4:4.10.1")
 }
 
-sourceSets {
-    main {
-        java.setSrcDirs(listOf("src"))
-        resources.setSrcDirs(listOf("resources"))
-    }
-    test {
-        java.setSrcDirs(listOf("test"))
-        resources.setSrcDirs(listOf("testResources"))
-    }
+application {
+    mainClass.set("ru.itmo.fl.shlang.MainKt")
+}
+
+tasks.generateGrammarSource {
+    val generated = "generated-src/antlr/main/ru/itmo/fl/shlang/frontend/antlr"
+    outputDirectory = File("${project.buildDir}/$generated")
+    arguments.plusAssign(listOf("-visitor"))
+}
+
+tasks.withType<KotlinCompile> {
+    dependsOn("generateGrammarSource")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

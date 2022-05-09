@@ -1,0 +1,1 @@
+Program(statements=[AssignmentStmt(id=_1, expr=NumberLiteral(n=42))])
