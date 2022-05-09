@@ -2,6 +2,8 @@ package ru.itmo.fl.shlang.frontend.ast
 
 sealed interface Stmt : AstNode
 
+data class ExprStmt(val expr: Expr) : Stmt
+
 data class AssignmentStmt(val id: String, val expr: Expr) : Stmt
 
 data class IfStmt(val cond: Expr, val then: CompoundStmt, val `else`: CompoundStmt?) : Stmt

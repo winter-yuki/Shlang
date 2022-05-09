@@ -1,0 +1,1 @@
+Program(statements=[ExprStmt(expr=NumberLiteral(n=1)), ExprStmt(expr=NumberLiteral(n=42))])

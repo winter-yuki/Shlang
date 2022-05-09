@@ -4,22 +4,34 @@ sealed interface Expr : AstNode
 
 data class NumberLiteral(val n: Int) : Expr
 
-data class BinaryOperation(val op: Operation, val lhs: Expr, val rhs: Expr)
+data class Identifier(val id: String) : Expr
 
-enum class Operation(val repr: String) {
+data class BinOpNode(val op: BinOp, val lhs: Expr, val rhs: Expr) : Expr
+
+enum class BinOp(val repr: String) {
     Plus("+"), Minus("-"),
     Mul("*"), Div("/"),
     Pow("^"),
     Or("||"), And("&&"),
-    Not("!"),
     Gt(">"), Ge(">="),
     Lt("<"), Le("<="),
     Eq("=="), Neq("/=");
 
     companion object {
-        fun of(repr: String): Operation =
-            Operation.values().find { it.repr == repr }
-                ?: error("Operation $repr not found")
+        fun of(repr: String): BinOp = values().find { it.repr == repr }
+            ?: error("Binary operation $repr not found")
+    }
+}
+
+data class UnOpNode(val op: UnOp, val expr: Expr) : Expr
+
+enum class UnOp(val repr: String) {
+    Minus("-"),
+    Not("!");
+
+    companion object {
+        fun of(repr: String): UnOp = values().find { it.repr == repr }
+            ?: error("Unary operation $repr not found")
     }
 }
 

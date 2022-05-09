@@ -4,6 +4,24 @@ lexer grammar ShlangLexer;
 package ru.itmo.fl.shlang.frontend.antlr;
 }
 
+NOT:   '!';
+
+PLUS:  '+';
+MINUS: '-';
+MUL:   '*';
+DIV:   '/';
+POW:   '^';
+
+OR:    '||';
+AND:   '&&';
+
+GT:     '>';
+GE:     '>=';
+LT:     '<';
+LE:     '<=';
+EQ:     '==';
+NEQ:    '/=';
+
 IF:    'if';
 ELSE:  'else';
 WHILE: 'while';
